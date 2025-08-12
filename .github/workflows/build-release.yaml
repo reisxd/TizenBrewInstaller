@@ -46,7 +46,7 @@ jobs:
         working-directory: client
         run: |
           mkdir release
-          tizenjs build . -t wgt -o release/TizenBrewInstaller.wgt --author "${GITHUB_WORKSPACE}/tizenbrew-author.p12" --authorPwd "${{ secrets.TIZEN_AUTHOR_KEY_PW }}" -p public --ignore node_modules,/.*\.wgt$/,/userwidget/,/release/
+          tizenjs build . -t wgt -o release/TizenBrewInstaller.wgt --author "${GITHUB_WORKSPACE}/tizenbrew-author.p12" --authorPwd '${{ secrets.TIZEN_AUTHOR_KEY_PW }}' -p public --ignore node_modules,/.*\.wgt$/,/userwidget/,/release/
 
       - name: Change Package ID for USB Demo
         working-directory: client
@@ -56,8 +56,8 @@ jobs:
       - name: Build TizenBrew for USB Demo
         working-directory: client
         run: |
-          tizenjs build . -t wgt -o Installer.wgt --author "${GITHUB_WORKSPACE}/tizenbrew-author.p12" --authorPwd "${{ secrets.TIZEN_AUTHOR_KEY_PW }}" -p public --ignore node_modules,/.*\.wgt$/,/userwidget/,/release/
-    
+          tizenjs build . -t wgt -o Installer.wgt --author "${GITHUB_WORKSPACE}/tizenbrew-author.p12" --authorPwd '${{ secrets.TIZEN_AUTHOR_KEY_PW }}' -p public --ignore node_modules,/.*\.wgt$/,/userwidget/,/release/
+
       - name: Package TizenBrew as USB Demo Package
         working-directory: client
         run: |
