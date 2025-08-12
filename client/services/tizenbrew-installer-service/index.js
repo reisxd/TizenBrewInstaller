@@ -104,6 +104,7 @@ module.exports.onStart = function () {
                         parsePackage(buffer)
                             .then(pkg => {
                                 wsConn.send(wsConn.Event(Events.InstallationStatus, 'installStatus.installing'));
+                                mkdirSync(`/home/owner/share/tmp/sdk_tools`, { recursive: true });
                                 writeFileSync(`/home/owner/share/tmp/sdk_tools/package.${pkg.isWgt ? 'wgt' : 'tpk'}`, buffer);
                                 if (isTizen3) {
                                     const result = installPackage(`/home/owner/share/tmp/sdk_tools/package.${pkg.isWgt ? 'wgt' : 'tpk'}`, pkg.packageId);
