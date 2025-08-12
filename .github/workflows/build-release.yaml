@@ -26,7 +26,7 @@ jobs:
         run: |
           sudo apt install -y expect zip coreutils
           npm install
-          npm install -g @vercel/ncc wgt-to-usb github:reisxd/tizen.js
+          npm install -g @vercel/ncc wgt-to-usb https://github.com/reisxd/tizen.js.git
           npm run build
           rm -rf node_modules
           rm -rf transpiled
