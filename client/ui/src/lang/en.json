@@ -1,0 +1,33 @@
+{
+    "service": {
+        "alreadyRunning": "Service is already running.",
+        "started": "Service started."
+    },
+    "errors": {
+        "debuggingNotEnabled": "Error: Could not connect to the SDB Daemon. Are you sure you changed the Host PC IP to 127.0.0.1? If you have, hold the power button till you see the Samsung logo."
+    },
+    "installStatus": {
+        "fetching": "Fetching package",
+        "parsing": "Parsing package",
+        "installing": "Installing package",
+        "installed": "Package installed",
+        "installingAgain": "TizenBrew Installer is installed as an USB Demo Package. It will now be reinstalled as a normal package.",
+        "alreadyInstalled": "TizenBrew Installer as an USB Demo Package is installed. You can now uninstall it.",
+        "installFailed": "Installation failed: {{line}}"
+    },
+    "resigning": {
+        "resigningRequired": "Resigning required",
+        "resigningRequiredDesc": "Since Tizen 7, all packages must be resigned with a Samsung Certificate.\nPlease scan the QR code to sign in to your Samsung account and then copy the response JSON you get after signing in.",
+        "resigningRequiredAccessInfo": "After copying the JSON response, go into http://{{ip}}:4794 and paste it into the input field and press the \"Submit\" button.",
+        "resigningDeviceSameNetwork": "Make sure your device is on the same network as your TV."
+    },
+    "installer": {
+        "installTB": "Install TizenBrew",
+        "updateTB": "Update TizenBrew",
+        "installFromUSB": "Install from USB",
+        "installFromGH": "Install from GitHub"
+    },
+    "__contributors": [
+        "reisxd"
+    ]
+}

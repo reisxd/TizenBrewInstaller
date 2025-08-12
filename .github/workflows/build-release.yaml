@@ -1,0 +1,82 @@
+name: Build TizenBrew Installer and Release
+
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  schedule:
+    - cron: '0 0 1 */1 *'
+
+env:
+  TIZEN_STUDIO_VER: 5.6
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone repo
+        uses: actions/checkout@v4
+      
+      - name: Set env
+        run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+      
+      - name: Install modules, transpile service and build service
+        working-directory: client/services/tizenbrew-installer-service
+        run: |
+          sudo apt install -y expect zip coreutils
+          npm install
+          npm install -g @vercel/ncc wgt-to-usb github:reisxd/tizen.js
+          npm run build
+          rm -rf node_modules
+          rm -rf transpiled
+
+      - name: Build UI
+        working-directory: client/ui
+        run: |
+          npm install --force
+          npm run build
+          rm -rf node_modules
+
+      - name: Prepare Tizen Certificate
+        run: |
+          echo "${{ secrets.TIZEN_AUTHOR_KEY }}" | base64 -d > "${GITHUB_WORKSPACE}/tizenbrew-author.p12"
+
+      - name: Build TizenBrew
+        working-directory: client
+        run: |
+          mkdir release
+          tizenjs build . -t wgt -o release/TizenBrewInstaller.wgt --author "${GITHUB_WORKSPACE}/tizenbrew-author.p12" --authorPwd "${{ secrets.TIZEN_AUTHOR_KEY_PW }}" -p public --ignore node_modules,/.*\.wgt$/,/userwidget/,/release/
+
+      - name: Change Package ID for USB Demo
+        working-directory: client
+        run: |
+          sed -i 's/xvvl3S1bTI/xvvl3S1bTU/g' config.xml
+
+      - name: Build TizenBrew for USB Demo
+        working-directory: client
+        run: |
+          tizenjs build . -t wgt -o Installer.wgt --author "${GITHUB_WORKSPACE}/tizenbrew-author.p12" --authorPwd "${{ secrets.TIZEN_AUTHOR_KEY_PW }}" -p public --ignore node_modules,/.*\.wgt$/,/userwidget/,/release/
+    
+      - name: Package TizenBrew as USB Demo Package
+        working-directory: client
+        run: |
+          wgt-to-usb Installer.wgt 
+
+      - name: Upload TizenBrew package artifact for Old Tizen
+        uses: actions/upload-artifact@v4
+        with:
+            name: app-${{ github.sha }}-old.wgt
+            path: client/release/TizenBrewInstaller.wgt
+      
+      - name: Zip USB Demo Package
+        working-directory: client
+        run: |
+          zip -r release/userwidget.zip userwidget/
+      
+      - name: Release TizenBrew Build Results
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ env.RELEASE_VERSION }}
+          files: |
+            client/release/*

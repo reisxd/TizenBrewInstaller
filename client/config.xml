@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns:tizen="http://tizen.org/ns/widgets" xmlns="http://www.w3.org/ns/widgets" id="https://tizenbrew.vercel.app" version="1.0.0" viewmodes="maximized">
+    <access origin="*" subdomains="true"></access>
+    <tizen:application id="xvvl3S1bTI.TizenBrewStandalone" package="xvvl3S1bTI" required_version="3.0"/>
+    <author href="https://tizenbrew.vercel.app">Reis Can</author>
+    <content src="ui/dist/index.html"/>
+    <feature name="http://tizen.org/feature/screen.size.all"/>
+    <feature name="http://tizen.org/feature/web.service"/>
+    <icon src="icon.png"/>
+    <name>TizenBrewInstaller</name>
+    <tizen:privilege name="http://tizen.org/privilege/internet"/>
+    <tizen:privilege name="http://developer.samsung.com/privilege/network.public"/>
+    <tizen:privilege name="http://tizen.org/privilege/tv.inputdevice"/>
+    <tizen:privilege name="http://developer.samsung.com/privilege/productinfo"/>
+    <tizen:privilege name="http://tizen.org/privilege/application.launch"/>
+    <tizen:profile name="tv-samsung"/>
+    <tizen:service id="xvvl3S1bTI.InstallerService">
+        <tizen:content src="services/tizenbrew-installer-service/dist/index.js"/>
+        <tizen:name>TizenBrewService</tizen:name>
+        <tizen:description>TizenBrewService</tizen:description>
+    </tizen:service>
+    <tizen:setting screen-orientation="landscape" context-menu="enable" background-support="enable" encryption="disable" install-location="auto" hwkey-event="enable"/>
+</widget>
