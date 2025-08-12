@@ -11,8 +11,6 @@
         "parsing": "Parsing package",
         "installing": "Installing package",
         "installed": "Package installed",
-        "installingAgain": "TizenBrew Installer is installed as an USB Demo Package. It will now be reinstalled as a normal package.",
-        "alreadyInstalled": "TizenBrew Installer as an USB Demo Package is installed. You can now uninstall it.",
         "installFailed": "Installation failed: {{line}}"
     },
     "resigning": {
@@ -25,7 +23,9 @@
         "installTB": "Install TizenBrew",
         "updateTB": "Update TizenBrew",
         "installFromUSB": "Install from USB",
-        "installFromGH": "Install from GitHub"
+        "installFromGH": "Install from GitHub",
+        "installingAgain": "TizenBrew Installer is installed as an USB Demo Package. It will now be reinstalled as a normal package.",
+        "alreadyInstalled": "TizenBrew Installer as an USB Demo Package is installed. You can now uninstall it."
     },
     "__contributors": [
         "reisxd"

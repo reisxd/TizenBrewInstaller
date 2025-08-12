@@ -38,7 +38,7 @@ class Client {
                         this.context.dispatch({
                             type: 'SET_ERROR',
                             payload: {
-                                message: i18next.t('installer.installFailed', { line: installFailedLine }),
+                                message: i18next.t('installStatus.installFailed', { line: installFailedLine }),
                                 disappear: false
                             }
                         });
