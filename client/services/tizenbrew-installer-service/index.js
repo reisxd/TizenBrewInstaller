@@ -9,7 +9,7 @@ module.exports.onStart = function () {
     const { readConfig, writeConfig } = require('./utils/configuration.js');
     const { fetchLatestRelease } = require('./utils/GitHubAPI.js')
     const { createSamsungCertificate, resignPackage } = require('./utils/SamsungCertificateCreation.js');
-    const { writeFileSync, readFileSync, readdirSync, statSync } = require('fs');
+    const { writeFileSync, readFileSync, readdirSync, statSync, mkdirSync } = require('fs');
     const { setValue } = require('./utils/Buxton2.js');
     const { join } = require('path');
     const { parsePackage, installPackage } = require('./utils/PackageInstallation.js');
@@ -254,6 +254,7 @@ module.exports.onStart = function () {
                         currentConfig.authorCert = Buffer.from(certificate.authorCert, 'binary').toString('base64');
                         currentConfig.distributorCert = Buffer.from(certificate.distributorCert, 'binary').toString('base64');
                         currentConfig.password = password;
+                        mkdirSync('/home/owner/share/tmp/sdk_tools', { recursive: true });
                         writeFileSync('/home/owner/share/tmp/sdk_tools/device-profile.xml', certificate.distributorXML);
                         writeConfig(currentConfig);
                         if (wsClient) {
