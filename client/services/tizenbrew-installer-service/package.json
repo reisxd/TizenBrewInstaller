@@ -15,7 +15,7 @@
     "jszip": "^3.10.1",
     "node-fetch": "^2.7.0",
     "node-forge": "^1.3.1",
-    "tizen": "github:reisxd/tizen.js",
+    "tizen": "https://github.com/reisxd/tizen.js/tarball/main",
     "ws-new": "npm:ws@^8.18.0",
     "ws-old": "npm:ws@^4.1.0",
     "xml2js": "^0.6.2"
