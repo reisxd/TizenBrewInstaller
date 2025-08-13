@@ -8,6 +8,7 @@
     },
     "installStatus": {
         "fetching": "Fetching package",
+        "resigning": "Resigning package",
         "parsing": "Parsing package",
         "installing": "Installing package",
         "installed": "Package installed",

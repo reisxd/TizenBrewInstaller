@@ -11,7 +11,7 @@ module.exports.onStart = function () {
     const { createSamsungCertificate, resignPackage } = require('./utils/SamsungCertificateCreation.js');
     const { writeFileSync, readFileSync, readdirSync, statSync, mkdirSync, existsSync } = require('fs');
     const { setValue } = require('./utils/Buxton2.js');
-    const { join } = require('path');
+    const { join, dirname } = require('path');
     const { parsePackage, installPackage } = require('./utils/PackageInstallation.js');
     const { Connection, Events } = require('./utils/wsCommunication.js');
     const AccessInfoHTMLPage = require('./utils/HTMLPage.js');
@@ -74,6 +74,15 @@ module.exports.onStart = function () {
     }
 
 
+    function mkdirRecursive(targetDir) {
+        if (existsSync(targetDir)) return;
+        const parent = dirname(targetDir);
+        if (!existsSync(parent)) {
+            mkdirRecursive(parent);
+        }
+        mkdirSync(targetDir);
+    }
+
     wsServer.on('connection', (ws) => {
         const wsConn = new Connection(ws);
         wsClient = wsConn;
@@ -104,7 +113,7 @@ module.exports.onStart = function () {
                         parsePackage(buffer)
                             .then(pkg => {
                                 wsConn.send(wsConn.Event(Events.InstallationStatus, 'installStatus.installing'));
-                                if (!existsSync('/home/owner/share/tmp/sdk_tools')) mkdirSync(`/home/owner/share/tmp/sdk_tools`, { recursive: true });
+                                if (!existsSync('/home/owner/share/tmp/sdk_tools')) mkdirRecursive(`/home/owner/share/tmp/sdk_tools`);
                                 writeFileSync(`/home/owner/share/tmp/sdk_tools/package.${pkg.isWgt ? 'wgt' : 'tpk'}`, buffer);
                                 if (isTizen3) {
                                     const result = installPackage(`/home/owner/share/tmp/sdk_tools/package.${pkg.isWgt ? 'wgt' : 'tpk'}`, pkg.packageId);
@@ -255,7 +264,7 @@ module.exports.onStart = function () {
                         currentConfig.authorCert = Buffer.from(certificate.authorCert, 'binary').toString('base64');
                         currentConfig.distributorCert = Buffer.from(certificate.distributorCert, 'binary').toString('base64');
                         currentConfig.password = password;
-                        if (!existsSync('/home/owner/share/tmp/sdk_tools')) mkdirSync(`/home/owner/share/tmp/sdk_tools`, { recursive: true });
+                        if (!existsSync('/home/owner/share/tmp/sdk_tools')) mkdirRecursive(`/home/owner/share/tmp/sdk_tools`);
                         writeFileSync('/home/owner/share/tmp/sdk_tools/device-profile.xml', certificate.distributorXML);
                         writeConfig(currentConfig);
                         if (wsClient) {
