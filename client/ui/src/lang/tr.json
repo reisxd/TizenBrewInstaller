@@ -1,0 +1,34 @@
+{
+    "service": {
+        "alreadyRunning": "Servis zaten çalışıyor.",
+        "started": "Servis başlatıldı."
+    },
+    "errors": {
+        "debuggingNotEnabled": "Hata: SDB Daemon'a bağlanılamadı. Host PC IP'sini 127.0.0.1 olarak değiştirdiğinizden emin misiniz? Eğer değiştirdiyseniz, Samsung logosunu görene kadar güç düğmesini basılı tutun."
+    },
+    "installStatus": {
+        "fetching": "Paket alınıyor",
+        "resigning": "Paket yeniden imzalanıyor",
+        "parsing": "Paket ayrıştırılıyor",
+        "installing": "Paket kuruluyor",
+        "installed": "Paket kuruldu",
+        "installFailed": "Kurulum hatası: {{line}}"
+    },
+    "resigning": {
+        "resigningRequired": "Yeniden imzalama gerekli",
+        "resigningRequiredDesc": "Tizen 7'den itibaren, tüm paketler bir Samsung Sertifikası ile yeniden imzalanmalıdır.\nLütfen QR kodunu tarayın ve ardından oturum açtıktan sonra aldığınız yanıt JSON'unu kopyalayın.",
+        "resigningRequiredAccessInfo": "JSON yanıtını kopyaladıktan sonra, http://{{ip}}:4794 adresine gidin ve bunu giriş alanına yapıştırın ve \"Submit\" düğmesine basın.",
+        "resigningDeviceSameNetwork": "Cihazınızın TV ile aynı ağda olduğundan emin olun."
+    },
+    "installer": {
+        "installTB": "TizenBrew'ı Kur",
+        "updateTB": "TizenBrew'ı Güncelle",
+        "installFromUSB": "USB'den Kur",
+        "installFromGH": "GitHub'dan Kur",
+        "installingAgain": "TizenBrew Installer, USB Demo paketi olarak yüklüdür. Şimdi normal paket olarak yeniden yüklenecektir.",
+        "alreadyInstalled": "TizenBrew Installer, USB Demo paketi olarak yüklüdür. Şimdi USB Demo paketini kaldırabilirsiniz."
+    },
+    "__contributors": [
+        "reisxd"
+    ]
+}
