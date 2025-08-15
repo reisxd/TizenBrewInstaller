@@ -207,22 +207,22 @@ module.exports.onStart = function () {
                 }
 
                 case Events.NavigateDirectory: {
-                    const directory = readdirSync(payload, { withFileTypes: true });
+                    const directory = readdirSync(payload);
                     const metadata = [{
                         name: 'Go up one directory',
-                        path: directory !== '/media' ? join(payload, '..') : '/media',
+                        path: payload !== '/media' ? join(payload, '..') : '/media',
                         isDirectory: true
                     }];
                     for (const file of directory) {
-                        const filePath = join(payload, file.name);
+                        const filePath = join(payload, file);
                         try {
                             const stats = statSync(filePath);
                             metadata.push({
-                                name: file.name,
+                                name: file,
                                 path: filePath,
                                 isDirectory: stats.isDirectory()
                             });
-                        } catch (_) { }
+                        } catch (e) {}
                     }
                     wsConn.send(wsConn.Event(Events.NavigateDirectory, metadata));
                     break;
