@@ -1,0 +1,34 @@
+{
+    "service": {
+        "alreadyRunning": "Dịch vụ đang chạy.",
+        "started": "Dịch vụ bắt đầu chạy."
+    },
+    "errors": {
+        "debuggingNotEnabled": "Lỗi: Không thể kết nối đến SDB Daemon. Bạn đã bật Chế độ nhà phát triển (Developer mode) và đổi Host PC IP thành 127.0.0.1 chưa? Vui lòng giữ nút nguồn cho đến khi logo Samsung hoặc hình ngôi nhà hiển thị nếu bạn đã hoàn thành."
+    },
+    "installStatus": {
+        "fetching": "Đang nạp gói cài đặt",
+        "resigning": "Đang sign lại gói cài đặt",
+        "parsing": "Đang phân tích cú pháp gói",
+        "installing": "Đang cài đặt",
+        "installed": "Đã cài đặt",
+        "installFailed": "Không thể cài đặt: {{line}}"
+    },
+    "resigning": {
+        "resigningRequired": "App cần được sign lại",
+        "resigningRequiredDesc": "Từ Tizen 7.0 (2023) trở lên, tất cả gói (file) cài đặt phải được sign lại với một chứng chỉ Samsung được tạo bằng tài khoản Samsung của bạn.\nVui lòng quét mã QR hiển thị bên dưới bằng thiết bị di động của bạn để đăng nhập, sau đó copy (sao chép) toàn bộ đoạn mã JSON trả về hiển thị trên màn hình.",
+        "resigningRequiredAccessInfo": "Sau khi copy đoạn mã JSON, truy cập http://{{ip}}:4794 trong trình duyệt trên thiết bị di động của bạn và paste (dán) vào phần điền thông tin và nhấn nút \"Submit\".",
+        "resigningDeviceSameNetwork": "Thiết bị di động và TV của bạn cần được kết nối chung 1 mạng Wi-Fi/LAN để đảm bảo hoạt động."
+    },
+    "installer": {
+        "installTB": "Cài đặt TizenBrew",
+        "updateTB": "Cập nhật TizenBrew",
+        "installFromUSB": "Cài đặt app từ USB",
+        "installFromGH": "Cài đặt app từ GitHub",
+        "installingAgain": "TizenBrew Installer đã được cài đặt dưới dạng USB Demo Package. Bây giờ app sẽ tự cài lại như 1 app bình thường.",
+        "alreadyInstalled": "TizenBrew Installer dưới dạng USB Demo Package đang được cài đặt. Bây giờ bạn có thể gỡ cài đặt gói Demo này."
+    },
+    "__contributors": [
+        "AXTRplayer (Intel Core i5-8350u)"
+    ]
+}
