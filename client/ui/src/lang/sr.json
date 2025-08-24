@@ -1,0 +1,34 @@
+{
+    "service": {
+        "alreadyRunning": "Услуга је већ покренута.",
+        "started": "Услуга покренута."
+    },
+    "errors": {
+        "debuggingNotEnabled": "Грешка: Није могуће повезати се са SDB Daemon. Да ли сте сигурни да сте променили Host PC IP адресу на 127.0.0.1? Ако јесте, држите дугме за паљење док се не појави Samsung лого."
+    },
+    "installStatus": {
+        "fetching": "Преузимање пакета",
+        "resigning": "Потписивање пакета",
+        "parsing": "Парсирање пакета",
+        "installing": "Инсталирање пакета",
+        "installed": "Пакет је инсталиран",
+        "installFailed": "Инсталација неуспешна: {{line}}"
+    },
+    "resigning": {
+        "resigningRequired": "Потребно потписивање",
+        "resigningRequiredDesc": "Почевши од Tizen 7, сви пакети морају бити потписани Samsung сертификатом.\nСкенирајте QR код да бисте се пријавили на свој Samsung налог, а затим копирајте JSON одговор који добијете након пријављивања.",
+        "resigningRequiredAccessInfo": "Након копирања JSON одговора, идите на http://{{ip}}:4794 и налепите га у поље за унос, а затим притисните \"Submit\" дугме.",
+        "resigningDeviceSameNetwork": "Уверите се да је ваш уређај на истој мрежи као и ваш телевизор."
+    },
+    "installer": {
+        "installTB": "Инсталација TizenBrew",
+        "updateTB": "Ажурирање TizenBrew",
+        "installFromUSB": "Инсталација са USB флешке",
+        "installFromGH": "Инсталација са GitHub-а",
+        "installingAgain": "TizenBrew Installer је инсталиран као USB Demo пакет. Сада ће бити поново инсталиран као обичан пакет.",
+        "alreadyInstalled": "TizenBrew Installer као USB Demo пакет је инсталиран. Сада га можете деинсталирати."
+    },
+    "__contributors": [
+        "milovanovic"
+    ]
+}
