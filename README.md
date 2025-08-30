@@ -8,7 +8,7 @@ TizenBrew Installer allows you to install TizenBrew and other Tizen apps easily,
 
 To install TizenBrew Installer, you'll need a PC or a mobile device and a USB Stick.
 
-First, download the [latest userwidget.zip file](https://github.com/reisxd/TizenBrewInstaller/releases/latest) from releases. After downloading it, extract the zip file directly to your USB Stick and plug it in to your TV.
+First, download the [latest userwidget.zip file](https://github.com/reisxd/TizenBrewInstaller/releases/latest) from releases. After downloading it, extract the zip file directly to your USB Stick in a folder `userwidget` and plug it in to your TV.
 
 After plugging the USB Stick in, the TV should show a notification saying the app is being installed. 
 
