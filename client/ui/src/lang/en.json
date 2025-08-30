@@ -26,9 +26,10 @@
         "installFromUSB": "Install from USB",
         "installFromGH": "Install from GitHub",
         "installingAgain": "TizenBrew Installer is installed as an USB Demo Package. It will now be reinstalled as a normal package.",
-        "alreadyInstalled": "TizenBrew Installer as an USB Demo Package is installed. You can now uninstall it."
+        "alreadyInstalled": "TizenBrew Installer as an USB Demo Package is still installed. You can now uninstall it. (It has a USB plug on the side of the glass in it's icon)"
     },
     "__contributors": [
-        "reisxd"
+        "reisxd",
+        "coopeeo"
     ]
 }
