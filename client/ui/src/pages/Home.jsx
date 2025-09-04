@@ -56,7 +56,7 @@ export default function Home() {
                         <img 
                             src={SignInQrCode} 
                             alt="Sign In QR Code" 
-                            className="mt-2 w-80 h-80 max-w-full max-h-[60vw] object-contain mx-auto border-2 rounded-lg"
+                            className="mt-2 w-80 h-80 max-w-full max-h-[60vw] object-contain mx-auto border-8 rounded-lg"
                         />
                         <p className="mt-4 text-lg">{t('resigning.resigningRequiredAccessInfo', { ip: webapis.network.getIp() })}</p>
                         <p className="mt-4 text-lg">{t('resigning.resigningDeviceSameNetwork')}</p>
