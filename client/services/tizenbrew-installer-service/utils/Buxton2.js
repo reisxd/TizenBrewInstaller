@@ -15,7 +15,14 @@ function getDuid(adbClient) {
         const stream = adbClient.createStream('shell:0 getduid')
         stream.on('data', (data) => {
             const duid = data.toString().trim();
+            if (!adbClient._stream) {
+                adbClient._stream.removeAllListeners('connect');
+                adbClient._stream.removeAllListeners('error');
+                adbClient._stream.removeAllListeners('close');
+            }
             adbClient._stream.end();
+            adbClient._stream = null;
+            adbClient = null;
             resolve(duid);
         });
         stream.on('error', (error) => {

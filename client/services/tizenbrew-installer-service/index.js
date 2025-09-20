@@ -227,6 +227,15 @@ module.exports.onStart = function () {
                     wsConn.send(wsConn.Event(Events.NavigateDirectory, metadata));
                     break;
                 }
+                case Events.DeleteConfiguration: {
+                    const config = readConfig();
+                    config.authorCert = null;
+                    config.distributorCert = null;
+                    config.password = null;
+                    writeConfig(config);
+                    wsConn.send(wsConn.Event(Events.DeleteConfiguration, null));
+                    break;
+                }
                 default: {
                     wsConn.send(wsConn.Event(Events.Error, 'Invalid event type.'));
                     break;

@@ -4,7 +4,8 @@ const Events = {
     InstallPackage: 1,
     NavigateDirectory: 2,
     Error: 3,
-    InstallationStatus: 4
+    InstallationStatus: 4,
+    DeleteConfiguration: 5
 };
 
 class Client {
@@ -42,6 +43,12 @@ class Client {
                                 disappear: false
                             }
                         });
+
+                        if (installFailedLine.includes('Check certificate error')) {
+                            this.send({
+                                type: Events.DeleteConfiguration
+                            });
+                        }
                     }
                 } else {
                     this.context.dispatch({

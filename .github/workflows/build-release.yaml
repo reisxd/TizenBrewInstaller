@@ -8,9 +8,6 @@ on:
   schedule:
     - cron: '0 0 1 */1 *'
 
-env:
-  TIZEN_STUDIO_VER: 5.6
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -18,8 +15,8 @@ jobs:
       - name: Clone repo
         uses: actions/checkout@v4
       
-      - name: Set env
-        run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+      - name: Get latest tag
+        run: echo "RELEASE_VERSION=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
       
       - name: Install modules, transpile service and build service
         working-directory: client/services/tizenbrew-installer-service
