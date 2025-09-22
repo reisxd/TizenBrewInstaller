@@ -1,0 +1,34 @@
+{
+    "service": {
+        "alreadyRunning": "Service is al draaiend.",
+        "started": "Service gestart."
+    },
+    "errors": {
+        "debuggingNotEnabled": "Error: Kan geen verbinding maken met SDB Daemon. Weet je zeker dat je de Host PC IP naar 127.0.0.1? Als je dat hebt gedaan, houd de Aan/Uit-knop ingedrukt tot je het Samsung logo."
+    },
+    "installStatus": {
+        "fetching": "Pakket ophalen",
+        "resigning": "Pakket hersigneren",
+        "parsing": "Pakket parseren",
+        "installing": "Pakket Installeren",
+        "installed": "Pakket geinstalleerd",
+        "installFailed": "Installatie mislukt: {{line}}"
+    },
+    "resigning": {
+        "resigningRequired": "Hersigneren vereist",
+        "resigningRequiredDesc": "Vanaf Tizen 7 moeten alle pakketten hersigned worden met een Samsung Certificate.\nScan de QR-code om in te loggen op uw Samsung-account en kopieer de JSON-antwoord die u krijgt na inloggen.",
+        "resigningRequiredAccessInfo": "Nadat u het JSON-antwoord hebt gekopieerd, ga naar http://{{ip}}:4794 en plak het in het tekstveld en druk op de \"Submit\" Knop.",
+        "resigningDeviceSameNetwork": "Zorg ervoor dat uw apparaat op het zelfde netwerk is als uw TV."
+    },
+    "installer": {
+        "installTB": "TizenBrew installeren",
+        "updateTB": "TizenBrew updaten",
+        "installFromUSB": "Installeren van USB",
+        "installFromGH": "Installeren van GitHub",
+        "installingAgain": "TizenBrew Installer is geinstalleerd als een USB Demo Package. Het zal nu worden geinstalleerd als een normaal pakket.",
+        "alreadyInstalled": "TizenBrew Installer als een USB Demo Package is geinstalleerd. U kunt het nu verwijderen."
+    },
+    "__contributors": [
+        "owen-the-kid"
+    ]
+}
