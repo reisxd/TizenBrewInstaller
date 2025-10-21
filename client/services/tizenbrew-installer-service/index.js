@@ -46,7 +46,7 @@ module.exports.onStart = function () {
     function createAdbConnection() {
         return new Promise((resolve, reject) => {
             if (adbClient) {
-                if (!adbClient._stream) {
+                if (adbClient._stream) {
                     adbClient._stream.removeAllListeners('connect');
                     adbClient._stream.removeAllListeners('error');
                     adbClient._stream.removeAllListeners('close');

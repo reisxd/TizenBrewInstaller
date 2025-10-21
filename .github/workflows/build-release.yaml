@@ -12,11 +12,34 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Clone repo
+      - name: Clone repo with full history and tags
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # fetch full history for tags
+          fetch-tags: true
       
-      - name: Get latest tag
-        run: echo "RELEASE_VERSION=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
+      - name: Fetch tags (safety)
+        run: |
+          git fetch --tags --force --prune
+      - name: Determine release tag
+        id: version
+        run: |
+          TAG=$(git describe --tags --abbrev=0 2>/dev/null || true)
+          if [ -z "$TAG" ]; then
+            echo "No tags found; deriving from config.xml or fallback"
+            if [ -f client/config.xml ]; then
+              # Extract version from config.xml's version attribute
+              CFG_VER=$(sed -n 's/.*version="\([^"]*\)".*/\1/p' client/config.xml | head -n1)
+              if [ -n "$CFG_VER" ]; then
+                TAG=v$CFG_VER
+              else
+                TAG=v0.0.0-${GITHUB_SHA:0:7}
+              fi
+            else
+              TAG=v0.0.0-${GITHUB_SHA:0:7}
+            fi
+          fi
+          echo "RELEASE_VERSION=$TAG" >> $GITHUB_ENV
       
       - name: Install modules, transpile service and build service
         working-directory: client/services/tizenbrew-installer-service
@@ -75,5 +98,6 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ env.RELEASE_VERSION }}
+          target_commitish: ${{ github.sha }}
           files: |
             client/release/*
