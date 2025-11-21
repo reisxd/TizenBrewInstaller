@@ -17,16 +17,24 @@
     "resigning": {
         "resigningRequired": "Resigning required",
         "resigningRequiredDesc": "Since Tizen 7, all packages must be resigned with a Samsung Certificate.\nPlease scan the QR code to sign in to your Samsung account and then copy the response JSON you get after signing in.",
+        "resigningRequiredPCDesc": "Since Tizen 7, all packages must be resigned with a Samsung Certificate.\nPlease click the button below to sign in to your Samsung account.",
+        "resigningRequiredOpenAuthButton": "Sign in to Samsung Account",
         "resigningRequiredAccessInfo": "After copying the JSON response, go into http://{{ip}}:4794 and paste it into the input field and press the \"Submit\" button.",
         "resigningDeviceSameNetwork": "Make sure your device is on the same network as your TV."
     },
     "installer": {
         "installTB": "Install TizenBrew",
+        "installTBI": "Install TizenBrew Installer",
+        "connectToTV": "Connect to TV",
         "updateTB": "Update TizenBrew",
         "installFromUSB": "Install from USB",
         "installFromGH": "Install from GitHub",
         "installingAgain": "TizenBrew Installer is installed as an USB Demo Package. It will now be reinstalled as a normal package.",
         "alreadyInstalled": "TizenBrew Installer as an USB Demo Package is installed. You can now uninstall it."
+    },
+    "installerDesktop": {
+        "sdbConnectionRefused": "Could not connect to the SDB Daemon. Make sure that the TV is on and that the IP is correct.",
+        "sdbConnectionReset": "Could not connect to the SDB Daemon. Either you haven't set the Host PC IP to this device's IP, or you didn't restart the TV properly. Hold the power button till you see the Samsung logo to restart the TV."
     },
     "__contributors": [
         "reisxd"

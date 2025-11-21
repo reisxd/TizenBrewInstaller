@@ -13,14 +13,21 @@ const accessInfoServerHtmlPage = `
         document.querySelector('button').addEventListener('click', async () => {
             const input = document.querySelector('input').value;
             if (input) {
+                let json;
                 try {
-                    const json = JSON.parse(input);
+                    json = JSON.parse(input);
+                } catch (e) {
+                    alert('Invalid JSON format.');
+                    return;
+                }
+                try {
                     const req = await fetch('/', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/x-www-form-urlencoded'
                         },
-                        body: \`code=\${encodeURIComponent(JSON.stringify(json))}\`
+                        body: \`code=\${encodeURIComponent(JSON.stringify(json))}\`,
+                        signal: AbortSignal.timeout(60000)
                     });
 
                     if (req.ok) {
@@ -30,7 +37,7 @@ const accessInfoServerHtmlPage = `
                         alert('Failed to submit access information.\\n' + res.error);
                     }
                 } catch (e) {
-                    alert('Invalid JSON format.');
+                    alert(\`An error occurred: \${e.message}\`);
                 }
             } else {
                 alert('Please enter your access information.');

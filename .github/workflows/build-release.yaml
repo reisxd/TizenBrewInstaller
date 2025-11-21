@@ -42,11 +42,12 @@ jobs:
           echo "RELEASE_VERSION=$TAG" >> $GITHUB_ENV
       
       - name: Install modules, transpile service and build service
+        uses: MOZGIII/install-ldid-action@v1
         working-directory: client/services/tizenbrew-installer-service
         run: |
           sudo apt install -y expect zip coreutils
           npm install
-          npm install -g @vercel/ncc wgt-to-usb https://github.com/reisxd/tizen.js/tarball/main
+          npm install -g @vercel/ncc wgt-to-usb https://github.com/reisxd/tizen.js/tarball/main @yao-pkg/pkg
           npm run build
           rm -rf node_modules
           rm -rf transpiled
@@ -101,3 +102,16 @@ jobs:
           target_commitish: ${{ github.sha }}
           files: |
             client/release/*
+
+      - name: Build Installer Desktop
+        working-directory: client
+        run: |
+          pkg -C GZip . --no-bytecode --public
+        
+      - name: Release Installer Desktop
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ env.RELEASE_VERSION }}
+          target_commitish: ${{ github.sha }}
+          files: |
+            client/dist/*

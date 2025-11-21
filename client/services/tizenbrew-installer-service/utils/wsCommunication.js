@@ -21,7 +21,8 @@ const Events = {
     NavigateDirectory: 2,
     Error: 3,
     InstallationStatus: 4,
-    DeleteConfiguration: 5
+    DeleteConfiguration: 5,
+    ConnectToTV: 6
 };
 
 module.exports = {

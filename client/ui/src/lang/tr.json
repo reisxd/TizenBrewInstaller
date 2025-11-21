@@ -17,16 +17,24 @@
     "resigning": {
         "resigningRequired": "Yeniden imzalama gerekli",
         "resigningRequiredDesc": "Tizen 7'den itibaren, tüm paketler bir Samsung Sertifikası ile yeniden imzalanmalıdır.\nLütfen QR kodunu tarayın ve ardından oturum açtıktan sonra aldığınız yanıt JSON'unu kopyalayın.",
+        "resigningRequiredPCDesc": "Tizen 7'den itibaren, tüm paketler bir Samsung Sertifikası ile yeniden imzalanmalıdır.\nLütfen Samsung hesabınıza giriş yapmak için aşağıdaki düğmeye tıklayın.",
+        "resigningRequiredOpenAuthButton": "Samsung Hesabına Giriş Yap",
         "resigningRequiredAccessInfo": "JSON yanıtını kopyaladıktan sonra, http://{{ip}}:4794 adresine gidin ve bunu giriş alanına yapıştırın ve \"Submit\" düğmesine basın.",
         "resigningDeviceSameNetwork": "Cihazınızın TV ile aynı ağda olduğundan emin olun."
     },
     "installer": {
         "installTB": "TizenBrew'ı Kur",
+        "installTBI": "TizenBrew Installer'ı Kur",
+        "connectToTV": "TV'ye Bağlan",
         "updateTB": "TizenBrew'ı Güncelle",
         "installFromUSB": "USB'den Kur",
         "installFromGH": "GitHub'dan Kur",
         "installingAgain": "TizenBrew Installer, USB Demo paketi olarak yüklüdür. Şimdi normal paket olarak yeniden yüklenecektir.",
         "alreadyInstalled": "TizenBrew Installer, USB Demo paketi olarak yüklüdür. Şimdi USB Demo paketini kaldırabilirsiniz."
+    },
+    "installerDesktop": {
+        "sdbConnectionRefused": "SDB Daemon'a bağlanılamadı. TV'nin açık olduğundan ve IP'nin doğru olduğundan emin olun.",
+        "sdbConnectionReset": "SDB Daemon'a bağlanılamadı. Ya Host PC IP'sini bu cihazın IP'si olarak ayarlamadınız ya da TV'yi düzgün bir şekilde yeniden başlatmadınız. TV'yi yeniden başlatmak için Samsung logosunu görene kadar güç düğmesini basılı tutun."
     },
     "__contributors": [
         "reisxd"

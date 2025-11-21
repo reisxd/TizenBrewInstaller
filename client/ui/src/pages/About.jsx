@@ -1,12 +1,14 @@
 import TBLogo from '../assets/tizenbrew.svg';
-import { GlobalStateContext } from '../components/ClientContext.jsx';
-import { useContext } from 'preact/hooks';
 
 export default function About() {
-    const { state } = useContext(GlobalStateContext);
-    const tizenVersion = tizen.systeminfo.getCapability('http://tizen.org/feature/platform.version');
-    const tvModel = tizen.systeminfo.getCapability('http://tizen.org/system/model_name');
-    const appVersion = tizen.application.getCurrentApplication().appInfo.version;
+    let tizenVersion = 'Unknown';
+    let tvModel = 'Unknown';
+    let appVersion = 'Unknown';
+    try {
+        tizenVersion = tizen.systeminfo.getCapability('http://tizen.org/feature/platform.version');
+        tvModel = tizen.systeminfo.getCapability('http://tizen.org/system/model_name');
+        appVersion = tizen.application.getCurrentApplication().appInfo.version;
+    } catch (e) {}
     
     return (
         <div className="flex justify-center align-center">

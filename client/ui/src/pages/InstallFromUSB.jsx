@@ -40,7 +40,7 @@ export default function InstallFromUSB() {
                                             type: Events.NavigateDirectory,
                                             payload: file.path
                                         });
-                                    } else if (file.name.endsWith('.wgt')) {
+                                    } else if (file.name.endsWith('.wgt') || file.name.endsWith('.tpk')) {
                                         state.client.send({
                                             type: Events.InstallPackage,
                                             payload: {

@@ -11,6 +11,7 @@ import About from './pages/About.jsx';
 import './components/i18n.js';
 import { ExclamationCircleIcon } from '@heroicons/react/16/solid';
 import { useTranslation } from 'react-i18next';
+import Desktop from './pages/Desktop.jsx';
 
 export default function App() {
   const headerRef = useRef(null);
@@ -60,6 +61,7 @@ export default function App() {
           </div>
           <Router>
             <Route component={Home} path="/ui/dist/index.html" />
+            <Route component={Desktop} path="/ui/dist/index.html/desktop" />
             <Route component={InstallFromGitHub} path="/ui/dist/index.html/install-from-gh" />
             <Route component={InstallFromUSB} path="/ui/dist/index.html/install-from-usb" />
             <Route component={About} path="/ui/dist/index.html/about" />

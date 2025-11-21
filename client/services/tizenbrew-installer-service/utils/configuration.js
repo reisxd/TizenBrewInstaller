@@ -1,20 +1,25 @@
 "use strict";
 
-const fs = require('fs');
+const { existsSync, readFileSync, writeFileSync, mkdirSync } = require('fs');
+const { homedir } = require('os');
 
 function readConfig() {
-    if (!fs.existsSync('/home/owner/share/tizenbrewInstallerConfig.json')) {
+    if (!existsSync(`${homedir()}/share/tizenbrewInstallerConfig.json`)) {
         return {
             authorCert: null,
             distributorCert: null,
             password: null
         };
     }
-    return JSON.parse(fs.readFileSync('/home/owner/share/tizenbrewInstallerConfig.json', 'utf8'));
+    return JSON.parse(readFileSync(`${homedir()}/share/tizenbrewInstallerConfig.json`, 'utf8'));
 }
 
 function writeConfig(config) {
-    fs.writeFileSync('/home/owner/share/tizenbrewInstallerConfig.json', JSON.stringify(config, null, 4));
+    if (!existsSync(`${homedir()}/share`)) {
+        mkdirSync(`${homedir()}/share`);
+    }
+
+    writeFileSync(`${homedir()}/share/tizenbrewInstallerConfig.json`, JSON.stringify(config, null, 4));
 }
 
 module.exports = {

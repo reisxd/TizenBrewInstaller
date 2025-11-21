@@ -10,19 +10,20 @@ function setValue(valueName, type, value) {
     execSync(`buxton2ctl set-${type} system ${valueName} ${value}`, { encoding: 'utf8' });
 }
 
-function getDuid(adbClient) {
+function getDuid(adbClient, isTV) {
     return new Promise((resolve, reject) => {
         const stream = adbClient.createStream('shell:0 getduid')
         stream.on('data', (data) => {
             const duid = data.toString().trim();
-            if (adbClient._stream) {
+            if (adbClient._stream && isTV) {
                 adbClient._stream.removeAllListeners('connect');
                 adbClient._stream.removeAllListeners('error');
                 adbClient._stream.removeAllListeners('close');
+                adbClient._stream.end();
+                adbClient._stream.destroy();
+                adbClient._stream = null;
+                adbClient = null;
             }
-            adbClient._stream.end();
-            adbClient._stream = null;
-            adbClient = null;
             resolve(duid);
         });
         stream.on('error', (error) => {

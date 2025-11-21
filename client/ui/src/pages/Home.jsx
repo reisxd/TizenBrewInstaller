@@ -9,9 +9,14 @@ import { Events } from '../components/WebSocketClient.js';
 import { useEffect } from 'preact/hooks';
 
 export default function Home() {
+    // Check if Tizen API is available
+    const isTizenApiAvailable = typeof tizen !== 'undefined' && tizen.application && tizen.application.getAppInfo;
     const context = useContext(GlobalStateContext);
     const { t } = useTranslation();
     const loc = useLocation();
+
+    if (!isTizenApiAvailable) loc.route('/ui/dist/index.html/desktop');
+
     // Check if TizenBrew is already installed.
     let isTizenBrewInstalled = false;
     try {

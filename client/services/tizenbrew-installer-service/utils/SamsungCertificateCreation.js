@@ -3,9 +3,9 @@ const { getDuid } = require('./Buxton2.js');
 const forge = require('node-forge');
 const JSZip = require('jszip');
 
-function createSamsungCertificate(authorInfo, accessInfo, adbClient) {
+function createSamsungCertificate(authorInfo, accessInfo, adbClient, isTV) {
     return new Promise((resolve, reject) => {
-        getDuid(adbClient)
+        getDuid(adbClient, isTV)
             .then(duid => {
                 const creator = new SamsungCertificateCreator();
                 creator.createCertificate(authorInfo, accessInfo, [duid])

@@ -5,7 +5,8 @@ const Events = {
     NavigateDirectory: 2,
     Error: 3,
     InstallationStatus: 4,
-    DeleteConfiguration: 5
+    DeleteConfiguration: 5,
+    ConnectToTV: 6
 };
 
 class Client {
@@ -86,6 +87,25 @@ class Client {
                     type: 'SET_STATE',
                     payload: payload
                 });
+                break;
+            }
+
+            case Events.ConnectToTV: {
+                // Handle connection to the TV
+                this.context.dispatch({
+                    type: 'SET_CONNECTED_TO_TV',
+                    payload: payload.success
+                });
+                
+                if (!payload.success) {
+                    this.context.dispatch({
+                        type: 'SET_ERROR',
+                        payload: {
+                            message: payload.error,
+                            disappear: false
+                        }
+                    });
+                }
                 break;
             }
         }

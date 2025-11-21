@@ -6,3 +6,9 @@
     outline: #1ca7ca solid 2px;
     box-shadow: #2396b3 0px 0px 10px 3px;
 }
+
+.hover-effect:hover {
+    outline: #1ca7ca solid 2px;
+    box-shadow: #2396b3 0px 0px 10px 3px;
+    transition: box-shadow 0.1s ease-in-out, outline 0.1s ease-in-out;
+}
