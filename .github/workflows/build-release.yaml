@@ -41,10 +41,13 @@ jobs:
           fi
           echo "RELEASE_VERSION=$TAG" >> $GITHUB_ENV
       
-      - name: Install modules, transpile service and build service
+      - name: Install ldid (required system tool)
         uses: MOZGIII/install-ldid-action@v1
+
+      - name: Install modules, transpile service and build service
         working-directory: client/services/tizenbrew-installer-service
         run: |
+          sudo apt update
           sudo apt install -y expect zip coreutils
           npm install
           npm install -g @vercel/ncc wgt-to-usb https://github.com/reisxd/tizen.js/tarball/main @yao-pkg/pkg
