@@ -72,6 +72,10 @@ module.exports.onStart = function () {
 
                 adbClient._stream.on('connect', () => {
                     hasConnected = true;
+                    if (isTV) {
+                        clearTimeout(waitTimeout);
+                        resolve(adbClient);
+                    }
                 });
 
                 adbClient._stream.on('error', (e) => {
@@ -122,8 +126,10 @@ module.exports.onStart = function () {
 
             switch (type) {
                 case Events.InstallPackage: {
-                    if (!isTizen3) {
-                        if (canConnectToDevice !== null && !canConnectToDevice) return wsConn.send(wsConn.Event(Events.Error, 'errors.debuggingNotEnabled'));
+                    if (!isTizen3 && isTV) {
+                        if (canConnectToDevice !== null && !canConnectToDevice) {
+                            return wsConn.send(wsConn.Event(Events.Error, 'errors.debuggingNotEnabled'));
+                        } else if (canConnectToDevice === null) return;
                     }
                     if (isTizen7OrHigher) {
                         // Check if we have author and distributor certificates
@@ -148,8 +154,9 @@ module.exports.onStart = function () {
                                                 wsConn.send(wsConn.Event(Events.InstallPackage, { response: 0, result }));
                                             });
                                     });
+                                    return;
                                 }
-                                if (isTizen3) {
+                                if (isTizen3 && isTV) {
                                     const result = installPackage(`/home/owner/share/tmp/sdk_tools/package.${pkg.isWgt ? 'wgt' : 'tpk'}`, pkg.packageId);
                                     setValue('db/sdk/develop/ip', 'string', '127.0.0.1');
                                     setValue('db/sdk/develop/mode', 'int32', '1');
@@ -164,6 +171,7 @@ module.exports.onStart = function () {
                                                     wsConn.send(wsConn.Event(Events.InstallPackage, { response: 0, result }));
                                                     setTimeout(() => {
                                                         adbClient._stream.end();
+                                                        adbClient._stream.destroy();
                                                     }, 5000);
                                                 });
                                         })

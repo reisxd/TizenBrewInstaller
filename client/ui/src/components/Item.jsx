@@ -22,7 +22,7 @@ export default function Item({ children, onClick }) {
       ref={ref}
       onClick={onClick}
       className={classNames(
-        'relative bg-gray-900 shadow-2xl rounded-3xl p-8 ring-1 ring-gray-900/10 sm:p-10 h-[35vh] w-[20vw] hover-effect cursor-pointer',
+        'relative bg-gray-900 shadow-2xl rounded-3xl p-8 ring-1 ring-gray-900/10 sm:p-10 h-[35vh] lg:w-[20vw] xs:w-[90vw] hover-effect cursor-pointer',
         focused ? 'focus' : '',
       )}
     >

@@ -32,7 +32,7 @@ export default function Header() {
 
     return (
         <header className="inset-x-0 top-0 bg-slate-700 h-[8vh]">
-            <nav aria-label="Global" className="flex items-center justify-between lg:px-8 h-[8vh]">
+            <nav aria-label="Global" className="flex md:items-center lg:justify-between lg:px-8 h-[8vh]">
                 <div className="flex lg:flex-1">
                     <a href="#" className="-m-1.5 p-1.5">
                         <img
@@ -41,9 +41,9 @@ export default function Header() {
                         />
                     </a>
                 </div>
-                <div className="hidden lg:flex lg:gap-x-12">
-                    <div className="mx-auto max-w-[30vw] h-[2.5vh]">
-                        <div className="hidden sm:mb-8 sm:flex sm:justify-center">
+                <div className="flex lg:gap-x-12">
+                    <div className="mx-auto lg:max-w-[30vw] h-[2.5vh]">
+                        <div className="sm:mb-8 sm:flex sm:justify-center">
                             <div className="relative rounded-full px-3 py-1 text-xl text-gray-200 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
                                 {t(state?.sharedData?.state || '...')}
                             </div>
