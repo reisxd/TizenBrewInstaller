@@ -23,6 +23,7 @@ module.exports.onStart = function () {
     let adbClient;
     let wsClient = null;
     let canConnectToDevice = null;
+    let isConnected = false;
     if (process.version === 'v4.4.3') {
         WebSocket = require('ws-old');
     } else {
@@ -40,7 +41,6 @@ module.exports.onStart = function () {
     let isTizen7OrHigher = isTV && Number(tizen.systeminfo.getCapability('http://tizen.org/feature/platform.version').split('.')[0]) >= 7;
     const isTizen3 = isTV && tizen.systeminfo.getCapability('http://tizen.org/feature/platform.version').startsWith('3.0');
     const wsServer = new WebSocket.Server({ server: app.listen(8091) });
-
 
     function checkCanConnectToDevice() {
         fetch('http://127.0.0.1:8001/api/v2/').then(res => res.json())
@@ -72,6 +72,7 @@ module.exports.onStart = function () {
 
                 adbClient._stream.on('connect', () => {
                     hasConnected = true;
+                    isConnected = true;
                     if (isTV) {
                         clearTimeout(waitTimeout);
                         resolve(adbClient);
@@ -80,6 +81,7 @@ module.exports.onStart = function () {
 
                 adbClient._stream.on('error', (e) => {
                     adbClient = null;
+                    hasConnected = false;
                     clearTimeout(waitTimeout);
                     if (e.code === 'ECONNREFUSED') {
                         reject(new Error('installerDesktop.sdbConnectionRefused'));
@@ -92,6 +94,7 @@ module.exports.onStart = function () {
 
                 adbClient._stream.on('close', () => {
                     adbClient = null;
+                    isConnected = false;
                     clearTimeout(waitTimeout);
                     reject(new Error('ADB connection closed.'));
                 });
@@ -156,6 +159,15 @@ module.exports.onStart = function () {
                                     });
                                     return;
                                 }
+
+                                if (payload.url && payload.url === 'reisxd/TizenBrewInstaller' &&
+                                    !isTV && existsSync(`${homedir()}/share/tizenbrewInstallerConfig.json`)) {
+                                    // Send the existing config to the TV
+                                    PushFile(adbClient, '/home/owner/share/tizenbrewInstallerConfig.json', readFileSync(`${homedir()}/share/tizenbrewInstallerConfig.json`), () => {
+                                        console.log('Config pushed to TV for Installer');
+                                    });
+                                }
+
                                 if (isTizen3 && isTV) {
                                     const result = installPackage(`/home/owner/share/tmp/sdk_tools/package.${pkg.isWgt ? 'wgt' : 'tpk'}`, pkg.packageId);
                                     setValue('db/sdk/develop/ip', 'string', '127.0.0.1');
@@ -203,13 +215,6 @@ module.exports.onStart = function () {
                                                 distributorCert: Buffer.from(config.distributorCert, 'base64').toString('binary'),
                                                 password: config.password
                                             };
-
-                                            if (payload.url === 'reisxd/TizenBrewInstaller') {
-                                                // Send the existing config to the TV
-                                                PushFile(adbClient, '/home/owner/share/tizenbrewInstallerConfig.json', readFileSync(`${homedir()}/share/tizenbrewInstallerConfig.json`), () => {
-                                                    console.log('Config pushed to TV for Installer');
-                                                });
-                                            }
 
                                             resignPackage(certificates, buffer)
                                                 .then(resignedBuffer => {
@@ -364,11 +369,13 @@ module.exports.onStart = function () {
             }
 
             if (isTV) {
-                createAdbConnection().then(adbClient => {
-                    createCert(adbClient);
-                }).catch(err => {
-                    response.status(500).json({ error: err.message });
-                });
+                if (!adbClient && !isConnected) {
+                    createAdbConnection().then(adbClient => {
+                        createCert(adbClient);
+                    }).catch(err => {
+                        response.status(500).json({ error: err.message });
+                    });
+                } else createCert(adbClient);
             } else createCert(adbClient);
         } else {
             response.send(AccessInfoHTMLPage);
