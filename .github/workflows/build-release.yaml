@@ -5,8 +5,6 @@ on:
   push:
     tags:
       - 'v*.*.*'
-  schedule:
-    - cron: '0 0 1 */1 *'
 
 jobs:
   build:
@@ -74,31 +72,11 @@ jobs:
           mkdir release
           tizenjs build . -t wgt -o release/TizenBrewInstaller.wgt --author "${GITHUB_WORKSPACE}/tizenbrew-author.p12" --authorPwd '${{ secrets.TIZEN_AUTHOR_KEY_PW }}' -p public --ignore node_modules,/.*\.wgt$/,/userwidget/,/release/
 
-      - name: Change Package ID for USB Demo
-        working-directory: client
-        run: |
-          sed -i 's/xvvl3S1bTI/xvvl3S1bTU/g' config.xml
-
-      - name: Build TizenBrew for USB Demo
-        working-directory: client
-        run: |
-          tizenjs build . -t wgt -o Installer.wgt --author "${GITHUB_WORKSPACE}/tizenbrew-author.p12" --authorPwd '${{ secrets.TIZEN_AUTHOR_KEY_PW }}' -p public --ignore node_modules,/.*\.wgt$/,/userwidget/,/release/
-
-      - name: Package TizenBrew as USB Demo Package
-        working-directory: client
-        run: |
-          wgt-to-usb Installer.wgt 
-
       - name: Upload TizenBrew package artifact for Old Tizen
         uses: actions/upload-artifact@v4
         with:
             name: app-${{ github.sha }}-old.wgt
             path: client/release/TizenBrewInstaller.wgt
-      
-      - name: Zip USB Demo Package
-        working-directory: client
-        run: |
-          zip -r release/userwidget.zip userwidget/
       
       - name: Release TizenBrew Build Results
         uses: softprops/action-gh-release@v1

@@ -6,19 +6,7 @@ TizenBrew Installer allows you to install TizenBrew and other Tizen apps easily,
 
 ## Installation
 
-To install TizenBrew Installer, you'll need a PC or a mobile device and a USB Stick. If you do not have a USB Stick or if you're having trouble installing via USB Stick, you can use TizenBrew Installer Desktop, which can be found in the releases section. More information about TizenBrew Installer Desktop can be found below.
-
-First, download the [latest userwidget.zip file](https://github.com/reisxd/TizenBrewInstaller/releases/latest) from releases. After downloading it, extract the zip file directly to your USB Stick and plug it in to your TV.
-
-After plugging the USB Stick in, the TV should show a notification saying the app is being installed. 
-
-After it's installed, you'll need to set Developer Mode Host PC IP to `127.0.0.1`.
-
-You can follow [this](https://developer.samsung.com/smarttv/develop/getting-started/using-sdk/tv-device.html#Connecting-the-TV-and-SDK) guide for more information.
-
-Note: If your TVs language is RTL (right to left), the IP must be `1.0.0.127`.
-
-After setting the Developer Mode settings, you should be able to use TizenBrew Installer.
+To install TizenBrew Installer, you'll need a PC or a mobile device. Since Samsung has shut down the service for the USB Demo Package creation, the only way is using TizenBrew Installer Desktop.
 
 ## TizenBrew Installer Desktop
 
