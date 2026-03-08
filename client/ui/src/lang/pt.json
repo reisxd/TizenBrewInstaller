@@ -1,0 +1,42 @@
+{
+    "service": {
+        "alreadyRunning": "Serviço já está a correr.",
+        "started": "Serviço iniciado."
+    },
+    "errors": {
+        "debuggingNotEnabled": "Erro: Não foi possível ligar ao SDB Daemon. Você tem certeza de que alterou o IP do PC Host para 127.0.0.1? Se sim, carregue no botão de energia até ver o logotipo da Samsung."
+    },
+    "installStatus": {
+        "fetching": "Buscando pacote",
+        "resigning": "Resignando pacote",
+        "parsing": "Analisando pacote",
+        "installing": "Instalando pacote",
+        "installed": "Pacote instalado",
+        "installFailed": "Falha na instalação: {{line}}"
+    },
+    "resigning": {
+        "resigningRequired": "Reassinatura necessária",
+        "resigningRequiredDesc": "Desde o Tizen 7, todos os pacotes devem ser reassinados com um Certificado Samsung.\nPor favor, escaneie o código QR para entrar na sua conta Samsung e depois copie o JSON de resposta que você obtém depois do login.",
+        "resigningRequiredPCDesc": "Desde o Tizen 7, todos os pacotes devem ser reassinados com um Certificado Samsung.\nPor favor, clique no botão abaixo para entrar na sua conta Samsung.",
+        "resigningRequiredOpenAuthButton": "Entrar na Conta Samsung",
+        "resigningRequiredAccessInfo": "Após copiar o JSON de resposta, acesse http://{{ip}}:4794 e cole-o no campo de entrada e pressione o botão \"Enviar\".",
+        "resigningDeviceSameNetwork": "Certifique-se de que seu dispositivo está na mesma rede que a sua TV."
+    },
+    "installer": {
+        "installTB": "Instalar TizenBrew",
+        "installTBI": "Instalar TizenBrew Installer",
+        "connectToTV": "Ligar à TV",
+        "updateTB": "Atualizar TizenBrew",
+        "installFromUSB": "Instalar a partir do USB",
+        "installFromGH": "Instalar a partir do GitHub",
+        "installingAgain": "O TizenBrew Installer está instalado como um Pacote Demo USB. Ele será reinstalado como um pacote normal.",
+        "alreadyInstalled": "O TizenBrew Installer como um Pacote Demo USB está instalado. Você pode agora desinstalá-lo."
+    },
+    "installerDesktop": {
+        "sdbConnectionRefused": "Não foi possível ligar ao SDB Daemon. Certifique-se de que a TV está ligada e que o IP está correto.",
+        "sdbConnectionReset": "Não foi possível ligar ao SDB Daemon. Ou você não definiu o IP do PC Host para o IP deste dispositivo, ou não reiniciou a TV corretamente. Segure o botão de energia até ver o logotipo da Samsung para reiniciar a TV."
+    },
+    "__contributors": [
+        "galmeida-dev"
+    ]
+}
