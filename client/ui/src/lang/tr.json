@@ -29,6 +29,7 @@
         "updateTB": "TizenBrew'ı Güncelle",
         "installFromUSB": "USB'den Kur",
         "installFromGH": "GitHub'dan Kur",
+        "selectToInstall": "Kurmak için dosyas seç",
         "installingAgain": "TizenBrew Installer, USB Demo paketi olarak yüklüdür. Şimdi normal paket olarak yeniden yüklenecektir.",
         "alreadyInstalled": "TizenBrew Installer, USB Demo paketi olarak yüklüdür. Şimdi USB Demo paketini kaldırabilirsiniz."
     },

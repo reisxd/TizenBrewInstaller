@@ -23,6 +23,25 @@ export default function Desktop() {
         }
     }, [context.state.client, context.state.client?.socket?.readyState]);
 
+    function onInputChange(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const dataUrl = e.target.result;
+
+                const base64Data = dataUrl.split(',')[1];
+
+                context.state.client.send({
+                    type: Events.InstallFile,
+                    payload: base64Data
+                });
+            }
+
+            reader.readAsDataURL(file);
+        }
+    }
+
     return (
         <div className="relative isolate lg:px-8 xs:overflow-scroll xs:max-h-[90vh] lg:!overflow-visible lg:!max-h-[100%]">
             {context.state.sharedData.qrCodeShow && (
@@ -83,6 +102,18 @@ export default function Desktop() {
                                     {t('installer.installFromGH')}
                                 </span>
                             </h3>
+                        </Item>
+                        <Item onClick={() => {
+                            const realFileInput = document.getElementById('realFileInput');
+                            realFileInput.click();
+                        }}>
+                            <h3 className='text-indigo-400 text-base/7 font-semibold'>
+                                <span className='flex items-center gap-2'>
+                                    <ArrowDownIcon className='h-8 w-8 text-indigo-400' />
+                                    {t('installer.selectToInstall')}
+                                </span>
+                            </h3>
+                            <input onChange={onInputChange} type="file" id="realFileInput" style="display: none;" />
                         </Item>
                     </>
                 ) : (
