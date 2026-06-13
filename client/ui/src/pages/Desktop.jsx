@@ -67,7 +67,7 @@ export default function Desktop() {
                             context.state.client.send({
                                 type: Events.InstallPackage,
                                 payload: {
-                                    url: 'reisxd/TizenBrew'
+                                    url: context.state.sharedData.tizenBrewRepo
                                 }
                             })
                         }}>

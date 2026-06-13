@@ -7,9 +7,9 @@ import { Events } from '../components/WebSocketClient.js';
 import Item from "../components/Item.jsx";
 
 export default function InstallFromGitHub() {
-    const [name, setName] = useState('');
+    const { state, dispatch } = useContext(GlobalStateContext);
+    const [name, setName] = useState(state.sharedData.tizenBrewRepo || '');
     const loc = useLocation();
-    const { state } = useContext(GlobalStateContext);
     const ref = useRef(null);
 
     useEffect(() => {
@@ -30,12 +30,17 @@ export default function InstallFromGitHub() {
                                 ref.current.blur();
                             }
                         }}
-                        onBlur={(e) => {
-                            if (name) {
+                        onBlur={() => {
+                            const repo = name.trim();
+                            if (repo) {
+                                dispatch({
+                                    type: 'SET_TIZENBREW_REPO',
+                                    payload: repo
+                                });
                                 state.client.send({
                                     type: Events.InstallPackage,
                                     payload: {
-                                        url: name
+                                        url: repo
                                     }
                                 });
                             }
@@ -43,7 +48,7 @@ export default function InstallFromGitHub() {
                             loc.route('/ui/dist/index.html');
                             setFocus('sn:focusable-item-1');
                         }}
-                        placeholder="reisxd/TizenBrew"
+                        placeholder="owner/repo"
                     />
                 </Item>
             </div>
