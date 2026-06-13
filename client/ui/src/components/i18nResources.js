@@ -4,6 +4,7 @@ import SerbianLanguage from '../lang/sr.json';
 import TurkishLanguage from '../lang/tr.json';
 import VietnameseLanguage from '../lang/vi.json';
 import DutchLanguage from '../lang/nl.json'; 
+import PortugueseLanguage from '../lang/pt.json';
 
 const resources = {
   en: {
@@ -23,6 +24,9 @@ const resources = {
   },
   nl: {
     translation: DutchLanguage
+  },
+  pt: {
+    translation: PortugueseLanguage
   }
 };
 
