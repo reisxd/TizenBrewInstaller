@@ -15,7 +15,7 @@ module.exports.onStart = function () {
     const { join, dirname } = require('path');
     const { parsePackage, installPackage } = require('./utils/PackageInstallation.js');
     const { Connection, Events } = require('./utils/wsCommunication.js');
-    const { homedir } = require('os');
+    const { homedir, networkInterfaces } = require('os');
     const AccessInfoHTMLPage = require('./utils/HTMLPage.js');
     const PushFile = require('./utils/FilePusher.js');
 
@@ -33,7 +33,12 @@ module.exports.onStart = function () {
     const app = express();
     if (!isTV) {
         // Enable static file serving for frontend
-        console.log('Open up http://localhost:8091/ui/dist/index.html to access the TizenBrew Installer.');
+        const exposedAddress = 
+            Object.values(networkInterfaces())
+                .flat()
+                .filter(networkInterface => !networkInterface.internal)[0]
+                .address;  // Get the first non-internal network interface IP address
+        console.log(`Open up http://${exposedAddress}:8091/ui/dist/index.html to access the TizenBrew Installer.`);
         if (existsSync(`${process.platform === 'win32' ? 'C:\\' : '/'}snapshot/client`)) {
             app.use(express.static(`${process.platform === 'win32' ? 'C:\\' : '/'}snapshot/client`));
         } else app.use(express.static(join(__dirname, '../../')));
