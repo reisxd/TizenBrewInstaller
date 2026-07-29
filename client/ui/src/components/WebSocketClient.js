@@ -13,7 +13,8 @@ const Events = {
 class Client {
     constructor(context) {
         this.context = context;
-        this.socket = new WebSocket('ws://localhost:8091');
+        const host = location?.host ?? 'localhost:8091';
+        this.socket = new WebSocket(`ws://${host}`);
         this.socket.onopen = this.onOpen.bind(this);
         this.socket.onmessage = this.onMessage.bind(this);
         this.socket.onerror = () => location.reload();

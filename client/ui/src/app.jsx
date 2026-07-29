@@ -74,7 +74,8 @@ export default function App() {
 
 
 function startService(context) {
-  const testWS = new WebSocket('ws://localhost:8091');
+  const host = location?.host ?? 'localhost:8091';
+  const testWS = new WebSocket(`ws://${host}`);
 
   testWS.onerror = () => {
     const pkgId = tizen.application.getCurrentApplication().appInfo.packageId;
