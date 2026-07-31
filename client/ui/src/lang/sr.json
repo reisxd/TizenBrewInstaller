@@ -25,6 +25,7 @@
         "updateTB": "Ажурирање TizenBrew",
         "installFromUSB": "Инсталација са USB флешке",
         "installFromGH": "Инсталација са GitHub-а",
+        "selectToInstall": "Изабери фајл за инсталацију",
         "installingAgain": "TizenBrew Installer је инсталиран као USB Demo пакет. Сада ће бити поново инсталиран као обичан пакет.",
         "alreadyInstalled": "TizenBrew Installer као USB Demo пакет је инсталиран. Сада га можете деинсталирати."
     },

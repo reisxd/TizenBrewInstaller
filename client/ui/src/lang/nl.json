@@ -25,6 +25,7 @@
         "updateTB": "TizenBrew updaten",
         "installFromUSB": "Installeren van USB",
         "installFromGH": "Installeren van GitHub",
+        "selectToInstall": "Selecteer bestand om te installeren",
         "installingAgain": "TizenBrew Installer is geinstalleerd als een USB Demo Package. Het zal nu worden geinstalleerd als een normaal pakket.",
         "alreadyInstalled": "TizenBrew Installer als een USB Demo Package is geinstalleerd. U kunt het nu verwijderen."
     },

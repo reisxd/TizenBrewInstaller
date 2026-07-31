@@ -3,6 +3,7 @@ import { useReducer } from 'preact/hooks';
 
 const initialState = {
     sharedData: {
+        tizenBrewRepo: localStorage.getItem('tizenBrewRepo') || 'reisxd/TizenBrew',
         state: null,
         directory: [],
         error: {
@@ -32,6 +33,9 @@ function reducer(state, action) {
             return { ...state, sharedData: { ...state.sharedData, qrCodeShow: action.payload } };
         case 'SET_CONNECTED_TO_TV':
             return { ...state, sharedData: { ...state.sharedData, connectedToTV: action.payload } };
+        case 'SET_TIZENBREW_REPO':
+            localStorage.setItem('tizenBrewRepo', action.payload);
+            return { ...state, sharedData: { ...state.sharedData, tizenBrewRepo: action.payload } };
         default:
             return state;
     }

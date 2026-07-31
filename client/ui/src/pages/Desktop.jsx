@@ -68,7 +68,7 @@ export default function Desktop() {
                             context.state.client.send({
                                 type: Events.InstallPackage,
                                 payload: {
-                                    url: 'reisxd/TizenBrew'
+                                    url: context.state.sharedData.tizenBrewRepo
                                 }
                             })
                         }}>
@@ -131,6 +131,7 @@ export default function Desktop() {
                             className="w-full p-2 rounded-lg bg-gray-800 text-gray-200"
                             onChange={(e) => setIp(e.target.value)}
                             onKeyDown={(e) => {
+                                if (e.keyCode === 37 || e.keyCode === 39) { e.stopPropagation(); return; }
                                 if (e.keyCode === 13 || e.keyCode === 65376) {
                                     ipInputRef.current.blur();
                                 }

@@ -25,6 +25,7 @@
         "updateTB": "Cập nhật TizenBrew",
         "installFromUSB": "Cài đặt app từ USB",
         "installFromGH": "Cài đặt app từ GitHub",
+        "selectToInstall": "Chọn file để cài đặt",
         "installingAgain": "TizenBrew Installer đã được cài đặt dưới dạng USB Demo Package. Bây giờ app sẽ tự cài lại như 1 app bình thường.",
         "alreadyInstalled": "TizenBrew Installer dưới dạng USB Demo Package đang được cài đặt. Bây giờ bạn có thể gỡ cài đặt gói Demo này."
     },

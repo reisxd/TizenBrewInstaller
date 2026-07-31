@@ -19,11 +19,13 @@ export default function Home() {
 
     // Check if TizenBrew is already installed.
     let isTizenBrewInstalled = false;
+    let installedVersion = null;
     try {
-        tizen.application.getAppInfo('xvvl3S1bvH.TizenBrewStandalone');
+        const appInfo = tizen.application.getAppInfo('xvvl3S1bvH.TizenBrewStandalone');
         isTizenBrewInstalled = true;
+        installedVersion = appInfo.version;
     } catch (e) { }
-
+    
 
     useEffect(() => {
         if (
@@ -73,7 +75,7 @@ export default function Home() {
                     context.state.client.send({
                         type: Events.InstallPackage,
                         payload: {
-                            url: 'reisxd/TizenBrew'
+                            url: context.state.sharedData.tizenBrewRepo
                         }
                     })
                 }}>
@@ -90,6 +92,8 @@ export default function Home() {
                             </span>
                         )}
                     </h3>
+                    <p className="mt-2 text-sm text-slate-300 break-all">Repo: {context.state.sharedData.tizenBrewRepo}</p>
+                    {installedVersion && <p className="text-sm text-slate-300">Installed: {installedVersion}</p>}
                 </Item>
                 <Item onClick={() => {
                     loc.route('/ui/dist/index.html/install-from-usb');

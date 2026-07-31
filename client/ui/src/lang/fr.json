@@ -25,6 +25,7 @@
     "updateTB": "Mettre à jour TizenBrew",
     "installFromUSB": "Installer à partir d'un périphérique USB",
     "installFromGH": "Installer depuis GitHub",
+    "selectToInstall": "Sélectionner un fichier à installer",
     "installingAgain": "TizenBrew Installer est installé en tant que Paquet Démo USB. Il va maintenant être réinstallé en tant que paquet normal.",
     "alreadyInstalled": "Le Paquet Démo USB de TizenBrew Installer est installé. Vous pouvez maintenant le supprimer."
   },
