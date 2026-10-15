@@ -1,13 +1,24 @@
-const { execSync } = require('child_process');
+const { execFileSync } = require('child_process');
+
+function validateKey(valueName) {
+    if (typeof valueName !== 'string' || !/^[a-zA-Z0-9_/-]+$/.test(valueName)) {
+        throw new Error('Invalid Buxton key');
+    }
+}
 
 function getValue(valueName) {
-    const cmd = execSync(`buxton2ctl get system ${valueName}`, { encoding: 'utf8' });
+    validateKey(valueName);
+    const cmd = execFileSync('buxton2ctl', ['get', 'system', valueName], { encoding: 'utf8' });
     const value = cmd.split(':')[1].trim();
     return value;
 }
 
 function setValue(valueName, type, value) {
-    execSync(`buxton2ctl set-${type} system ${valueName} ${value}`, { encoding: 'utf8' });
+    validateKey(valueName);
+    if (['string', 'int32'].indexOf(type) === -1 || typeof value !== 'string') {
+        throw new Error('Invalid Buxton value or type');
+    }
+    execFileSync('buxton2ctl', ['set-' + type, 'system', valueName, value], { encoding: 'utf8' });
 }
 
 function getDuid(adbClient, isTV) {

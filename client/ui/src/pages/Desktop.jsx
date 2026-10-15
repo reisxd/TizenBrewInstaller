@@ -50,10 +50,12 @@ export default function Desktop() {
                     <div className="p-8 rounded-2xl shadow-2xl max-w-full">
                         <h3 className="text-3xl font-bold mb-4">{t('resigning.resigningRequired')}</h3>
                         <p className="text-xl mb-4 whitespace-pre">{t('resigning.resigningRequiredPCDesc')}</p>
+                        <p className="text-xl mb-4">{t('resigning.confirmAccount')}</p>
                         <button
                             className="mb-4 inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-white font-semibold px-4 py-2 rounded-lg shadow-md"
                             onClick={() => {
-                                window.open('https://account.samsung.com/mobile/account/check.do?serviceID=v285zxnl3h&actionID=StartOAuth2&accessToken=Y&redirect_uri=http://localhost:4794/signin/callback', '_blank');
+                                window.open('http://localhost:4794/start?pairingCode=' +
+                                    encodeURIComponent(context.state.sharedData.pairingCode), '_blank');
                             }}
                         >
                             {t('resigning.resigningRequiredOpenAuthButton')}

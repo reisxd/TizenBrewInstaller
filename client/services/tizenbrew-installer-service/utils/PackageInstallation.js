@@ -1,14 +1,30 @@
-const { execSync } = require('child_process');
+const { execFileSync } = require('child_process');
+
+function validatePackageId(id, isWgt) {
+    // WGT IDs are ten alphanumeric characters. Native package IDs also allow dots/underscores.
+    const pattern = isWgt ? /^[A-Za-z0-9]{10}$/ : /^[A-Za-z0-9][A-Za-z0-9_.]{0,49}$/;
+    if (typeof id !== 'string' || !pattern.test(id)) throw new Error('Invalid package ID');
+    return id;
+}
+
+function shellArgument(value) {
+    return "'" + value.replace(/'/g, "'\\''") + "'";
+}
 const xml2js = require('xml2js');
 const JSZip = require('jszip');
 
 // Only wascmd is implemented, as pkgcmd (or native apps) are not available in Tizen 3.
 
 function installPackage(packagePath, id, adbClient) {
+    if (packagePath !== '/home/owner/share/tmp/sdk_tools/package.wgt' &&
+        packagePath !== '/home/owner/share/tmp/sdk_tools/package.tpk') {
+        throw new Error('Invalid installation path');
+    }
+    validatePackageId(id, /\.wgt$/.test(packagePath));
     if (adbClient) {
         // Install with vd_appinstall (wascmd wrapper for SDB)
         return new Promise((resolve, reject) => {
-            const stream = adbClient.createStream(`shell:0 vd_appinstall ${id} ${packagePath}`);
+            const stream = adbClient.createStream(`shell:0 vd_appinstall ${shellArgument(id)} ${shellArgument(packagePath)}`);
             let data = '';
             stream.on('data', (chunk) => {
                 data += `${chunk}\n`;
@@ -25,12 +41,7 @@ function installPackage(packagePath, id, adbClient) {
             });
         });
     }
-    try {
-        const output = execSync(`wascmd -i ${id} -p ${packagePath}`, { encoding: 'utf8' });
-        return output;
-    } catch (error) {
-        return error;
-    }
+    return execFileSync('wascmd', ['-i', id, '-p', packagePath], { encoding: 'utf8' });
 }
 
 function parsePackage(buffer) {
@@ -51,12 +62,12 @@ function parsePackage(buffer) {
                             packageId = result.widget['tizen:application'][0].$.package;
                         }
                         return {
-                            packageId,
+                            packageId: validatePackageId(packageId, isWgt),
                             isWgt
                         };
                     });
             } else {
-                return null;
+                throw new Error('Package manifest not found');
             }
         });
 }
