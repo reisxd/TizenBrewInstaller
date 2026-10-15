@@ -10,11 +10,26 @@ To install TizenBrew Installer, you'll need a PC or a mobile device. Since Samsu
 
 ## TizenBrew Installer Desktop
 
-TizenBrew Installer Desktop is TizenBrew Installer on your PC or (Android only) mobile device. Download the latest release from the [releases section](https://github.com/reisxd/TizenBrewInstaller/releases/latest).
+TizenBrew Installer Desktop is TizenBrew Installer on your PC or (Android only) mobile device. On PC, download the latest release from the [releases section](https://github.com/reisxd/TizenBrewInstaller/releases/latest). On Android, use the Termux package below.
 
-### Using TizenBrew Installer Desktop manually
+### Android / Termux
 
-If you're using Termux or would like to use TizenBrew Installer Desktop manually, you can follow these steps:
+Install [Termux](https://termux.com/), then install TizenBrew Installer from the [Termux User Repository (TUR)](https://github.com/termux-user-repository/tur):
+
+```sh
+pkg update
+pkg install tur-repo
+pkg install tizenbrew-installer
+tizenbrew-installer
+```
+
+Open http://localhost:8091/ui/dist/index.html in your Android browser and keep Termux running while using the installer.
+
+The package includes the built UI and installs its Node.js runtime dependency automatically. You don't need to clone the repository, install Node.js manually, or build from source.
+
+### Running from source
+
+If you prefer to run TizenBrew Installer Desktop from source, follow these steps:
 
 1. Install [Node.js](https://nodejs.org/) (on Android, you can use [Termux](https://termux.com/) and install Node.js via `pkg install nodejs`).
 
@@ -27,3 +42,5 @@ If you're using Termux or would like to use TizenBrew Installer Desktop manually
 5. Navigate to the `tizenbrew-installer-service` folder using `cd ../services/tizenbrew-installer-service` and run `npm install`.
 
 6. Run the application using `node .`.
+
+7. Open http://localhost:8091/ui/dist/index.html in your browser, leaving the service running.
