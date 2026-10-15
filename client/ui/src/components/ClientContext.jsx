@@ -10,6 +10,9 @@ const initialState = {
             dissapear: false
         },
         qrCodeShow: false,
+        pairingCode: null,
+        isTV: false,
+        tvAddress: null,
         connectedToTV: false
     },
     client: null
@@ -28,6 +31,10 @@ function reducer(state, action) {
             return { ...state, sharedData: { ...state.sharedData, error: action.payload } };
         case 'SET_DIRECTORY':
             return { ...state, sharedData: { ...state.sharedData, directory: action.payload } };
+        case 'SET_RUNTIME':
+            return { ...state, sharedData: { ...state.sharedData, ...action.payload } };
+        case 'SET_PAIRING_CODE':
+            return { ...state, sharedData: { ...state.sharedData, pairingCode: action.payload } };
         case 'SET_QR_CODE':
             return { ...state, sharedData: { ...state.sharedData, qrCodeShow: action.payload } };
         case 'SET_CONNECTED_TO_TV':

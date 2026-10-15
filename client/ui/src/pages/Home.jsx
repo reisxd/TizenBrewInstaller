@@ -15,10 +15,11 @@ export default function Home() {
     const { t } = useTranslation();
     const loc = useLocation();
 
-    if (!isTizenApiAvailable) loc.route('/ui/dist/index.html/desktop');
+    if (!context.state.sharedData.isTV) loc.route('/ui/dist/index.html/desktop');
 
     // Check if TizenBrew is already installed.
-    let isTizenBrewInstalled = false;
+    const nativeRuntime = context.state.sharedData.nativeRuntime || {};
+    let isTizenBrewInstalled = !!nativeRuntime.tizenbrewInstalled;
     try {
         tizen.application.getAppInfo('xvvl3S1bvH.TizenBrewStandalone');
         isTizenBrewInstalled = true;
@@ -31,7 +32,7 @@ export default function Home() {
             context.state.client.socket &&
             context.state.client.socket.readyState === WebSocket.OPEN
         ) {
-            const appInfo = tizen.application.getAppInfo();
+            const appInfo = isTizenApiAvailable ? tizen.application.getAppInfo() : nativeRuntime;
             if (appInfo.packageId === 'xvvl3S1bTU') {
                 alert(t('installer.installingAgain'));
                 context.state.client.send({
@@ -44,8 +45,12 @@ export default function Home() {
 
             try {
                 if (appInfo.packageId === 'xvvl3S1bTI') {
-                    tizen.application.getAppInfo('xvvl3S1bTU.TizenBrewStandalone');
-                    alert(t('installer.alreadyInstalled'));
+                    if (isTizenApiAvailable) {
+                        tizen.application.getAppInfo('xvvl3S1bTU.TizenBrewStandalone');
+                        alert(t('installer.alreadyInstalled'));
+                    } else if (nativeRuntime.installerInstalled) {
+                        alert(t('installer.alreadyInstalled'));
+                    }
                 }
             } catch (e) { }
         }
@@ -63,8 +68,9 @@ export default function Home() {
                             alt="Sign In QR Code" 
                             className="mt-2 w-80 h-80 max-w-full max-h-[60vw] object-contain mx-auto border-8 rounded-lg"
                         />
-                        <p className="mt-4 text-lg">{t('resigning.resigningRequiredAccessInfo', { ip: webapis.network.getIp() })}</p>
+                        <p className="mt-4 text-lg">{t('resigning.resigningRequiredAccessInfo', { ip: context.state.sharedData.tvAddress })}</p>
                         <p className="mt-4 text-lg">{t('resigning.resigningDeviceSameNetwork')}</p>
+                        <p className="mt-4 text-lg">{t('resigning.pairingCode', { code: context.state.sharedData.pairingCode })}</p>
                     </div>
                 </div>
             )}

@@ -59,13 +59,13 @@ export default function App() {
               </div>
             </div>
           </div>
-          <Router>
+          {context.state.client && <Router>
             <Route component={Home} path="/ui/dist/index.html" />
             <Route component={Desktop} path="/ui/dist/index.html/desktop" />
             <Route component={InstallFromGitHub} path="/ui/dist/index.html/install-from-gh" />
             <Route component={InstallFromUSB} path="/ui/dist/index.html/install-from-usb" />
             <Route component={About} path="/ui/dist/index.html/about" />
-          </Router>
+          </Router>}
         </div>
       </LocationProvider>
     </ErrorBoundary>
@@ -74,9 +74,13 @@ export default function App() {
 
 
 function startService(context) {
-  const testWS = new WebSocket('ws://localhost:8091');
+  const testWS = new WebSocket('ws://localhost:8091/probe');
 
   testWS.onerror = () => {
+    if (typeof tizen === 'undefined') {
+      context.dispatch({ type: 'SET_ERROR', payload: { message: 'errors.serviceConnectionFailed', disappear: false } });
+      return;
+    }
     const pkgId = tizen.application.getCurrentApplication().appInfo.packageId;
 
     const serviceId = pkgId + ".InstallerService";
@@ -104,10 +108,44 @@ function startService(context) {
       payload: 'service.alreadyRunning'
     });
 
-    context.dispatch({
-      type: 'SET_CLIENT',
-      payload: new Client(context)
-    });
+    testWS.close();
+    // A file:// / packaged TV origin must not receive service credentials.
+    // Switch to the service's same-origin UI before requesting a session token.
+    if (location.protocol !== 'http:' ||
+        ['localhost:8091', '127.0.0.1:8091'].indexOf(location.host) === -1) {
+      // Preserve native-only installation detection across the origin change.
+      // This is display/bootstrap metadata, never an authorization credential.
+      const nativeRuntime = {};
+      try { nativeRuntime.packageId = tizen.application.getAppInfo().packageId; } catch (e) { }
+      try {
+        tizen.application.getAppInfo('xvvl3S1bvH.TizenBrewStandalone');
+        nativeRuntime.tizenbrewInstalled = true;
+      } catch (e) { }
+      try {
+        tizen.application.getAppInfo('xvvl3S1bTU.TizenBrewStandalone');
+        nativeRuntime.installerInstalled = true;
+      } catch (e) { }
+      location.replace('http://localhost:8091/ui/dist/index.html#startup=' + encodeURIComponent(JSON.stringify(nativeRuntime)));
+      return;
+    }
+    fetch('/session', { method: 'POST', credentials: 'same-origin' })
+      .then(response => {
+        if (!response.ok) throw new Error('Session rejected');
+        return response.json();
+      })
+      .then(session => {
+        let nativeRuntime = {};
+        if (session.isTV && location.hash.indexOf('#startup=') === 0) {
+          try { nativeRuntime = JSON.parse(decodeURIComponent(location.hash.slice(9))) || {}; } catch (e) { }
+        }
+        context.dispatch({ type: 'SET_RUNTIME', payload: {
+          isTV: session.isTV, tvAddress: session.tvAddress, nativeRuntime
+        } });
+        context.dispatch({ type: 'SET_CLIENT', payload: new Client(context, session.token) });
+      })
+      .catch(() => context.dispatch({ type: 'SET_ERROR', payload: {
+        message: 'errors.serviceConnectionFailed', disappear: false
+      } }));
 
   }
 }

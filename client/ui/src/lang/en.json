@@ -4,6 +4,7 @@
         "started": "Service started."
     },
     "errors": {
+        "serviceConnectionFailed": "Could not connect securely to the installer service. Restart the service and reload this page.",
         "debuggingNotEnabled": "Error: Could not connect to the SDB Daemon. Are you sure you changed the Host PC IP to 127.0.0.1? If you have, hold the power button till you see the Samsung logo."
     },
     "installStatus": {
@@ -15,6 +16,8 @@
         "installFailed": "Installation failed: {{line}}"
     },
     "resigning": {
+        "confirmAccount": "After signing in, confirm your Samsung account on the certificate page. No pairing code is needed on this device.",
+        "pairingCode": "Enter pairing code {{code}} on the certificate page. It expires in 10 minutes and can be used once. If it expires or submission fails, reload the installer and retry installation for a new code.",
         "resigningRequired": "Resigning required",
         "resigningRequiredDesc": "Since Tizen 7, all packages must be resigned with a Samsung Certificate.\nPlease scan the QR code to sign in to your Samsung account and then copy the response JSON you get after signing in.",
         "resigningRequiredPCDesc": "Since Tizen 7, all packages must be resigned with a Samsung Certificate.\nPlease click the button below to sign in to your Samsung account.",

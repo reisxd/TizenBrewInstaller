@@ -11,15 +11,16 @@ const Events = {
 };
 
 class Client {
-    constructor(context) {
+    constructor(context, token) {
         this.context = context;
-        this.socket = new WebSocket('ws://localhost:8091');
+        this.socket = new WebSocket('ws://' + location.host + '/ws?token=' + encodeURIComponent(token));
         this.socket.onopen = this.onOpen.bind(this);
         this.socket.onmessage = this.onMessage.bind(this);
         this.socket.onerror = () => location.reload();
     }
 
     onOpen() {
+        this.context.dispatch({ type: 'SET_STATE', payload: 'service.alreadyRunning' });
     }
 
     onMessage(event) {
@@ -31,6 +32,7 @@ class Client {
                 // Handle package installation statuses
                 const requiresResigning = payload.response === 2;
                 if (requiresResigning) {
+                    this.context.dispatch({ type: 'SET_PAIRING_CODE', payload: payload.pairingCode });
                     this.context.dispatch({
                         type: 'SET_QR_CODE',
                         payload: true
@@ -53,6 +55,7 @@ class Client {
                         }
                     }
                 } else {
+                    this.context.dispatch({ type: 'SET_PAIRING_CODE', payload: null });
                     this.context.dispatch({
                         type: 'SET_QR_CODE',
                         payload: false

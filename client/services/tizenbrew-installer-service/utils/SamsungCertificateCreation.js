@@ -16,6 +16,7 @@ function createSamsungCertificate(authorInfo, accessInfo, adbClient, isTV) {
                         reject(new Error(`Samsung Certificate Creation Error: ${error.message}`));
                     });
             })
+            .catch(reject);
     });
 }
 
